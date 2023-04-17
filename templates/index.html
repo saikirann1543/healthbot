@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chatbot UI Interface</title>
+	<style type="text/css">
+		.container {
+			display: flex;
+			flex-direction: column;
+			height: 500px;
+			width: 400px;
+			margin: auto;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding: 20px;
+		}
+
+		.message-box {
+			display: flex;
+			flex-direction: column;
+			overflow-y: scroll;
+			height: 100%;
+			padding-bottom: 20px;
+		}
+
+		.message {
+			margin-bottom: 10px;
+			padding: 10px;
+			border-radius: 5px;
+			background-color: #f2f2f2;
+			align-self: flex-start;
+			max-width: 60%;
+		}
+
+		.user-message {
+			background-color: #4caf50;
+			color: white;
+			align-self: flex-end;
+		}
+
+		.bot-message {
+			background-color: #2196f3;
+			color: white;
+			align-self: flex-start;
+		}
+
+		input[type=text] {
+			border: none;
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+		}
+
+		button[type=submit] {
+			background-color: #4caf50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			padding: 10px;
+			cursor: pointer;
+			align-self: flex-end;
+			width: 100px;
+			margin-top: 10px;
+		}
+
+	</style>
+	<script>
+		window.onload = function () {
+			var form = document.getElementById("chat-form");
+			var input = document.getElementById("chat-input");
+			var messages = document.getElementById("chat-messages");
+			var chatHistory = [];
+
+			form.addEventListener("submit", function (event) {
+				event.preventDefault();
+				var userMessage = input.value;
+				var botMessage = "How can I help you?";
+				chatHistory.push("User: " + userMessage);
+				chatHistory.push("Bot: " + botMessage);
+				input.value = "";
+				displayChatHistory();
+			});
+
+			function displayChatHistory() {
+				messages.innerHTML = "";
+				for (var i = 0; i < chatHistory.length; i++) {
+					var message = chatHistory[i];
+					var div = document.createElement("div");
+					div.className = message.startsWith("User:") ? "message user-message" : "message bot-message";
+					div.name = "Vizz";
+					div.textContent = message;
+					messages.appendChild(div);
+				}
+				messages.scrollTop = messages.scrollHeight;
+			}
+		};
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div id="chat-messages" class="message-box"></div>
+		<div id = "chat-name" class="message-box"></div>
+		<form id="chat-form" method="post">
+			<input id="chat-input" type="text" placeholder="Type your message here...">
+			<button type="submit">Send</button>
+		</form>
+	</div>
+</body>
+</html>

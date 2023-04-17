@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bot Ratings</title>
+</head>
+<body>
+    <script>
+        let password = "password";
+        let pwd = prompt("Please enter the password");
+        if (pwd == password) {
+            console.log("Correct password");
+            let ratings = fetch("/show_ratings_json", { method: "GET" })
+  .then(response => response.json())
+  .then(data => {
+    let ratingsDiv = document.querySelector(".ratings");
+    ratingsDiv.innerHTML = "";
+
+    for (let i = 1; i < data.ratings.length; i++) {
+      let name = data.ratings[i][0];
+      let rating = data.ratings[i][1];
+
+      let ratingDiv = document.createElement("div");
+      ratingDiv.innerHTML = name + " " + rating;
+      ratingsDiv.appendChild(ratingDiv);
+    }
+  });
+        } else {
+            alert("Incorrect password");
+           }
+        
+        
+    </script>
+
+    <h1>Bot Ratings</h1>
+
+    <div class="ratings">
+
+    </div>
+    <div class="hello">
+
+    </div>
+
+</body>
+</html>
