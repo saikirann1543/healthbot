@@ -10,7 +10,7 @@ from flask import Flask, request, jsonify, render_template
 
 
 w2v_model = KeyedVectors.load_word2vec_format('new_another_one.bin', binary=True)
-
+print("yo")
 # load spacy nlp model
 nlp = spacy.load('en_core_web_sm', disable=['ner', 'parser'])
 # Load dataset from CSV file into pandas DataFrame
