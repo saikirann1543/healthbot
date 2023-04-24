@@ -9,10 +9,10 @@ from gensim.models import KeyedVectors
 from flask import Flask, request, jsonify, render_template
 
 
-w2v_model = KeyedVectors.load_word2vec_format('new_another_one.bin', binary=True)
-print("yo")
+w2v_model = KeyedVectors.load_word2vec_format('Cone.bin', binary=True)
+
 # load spacy nlp model
-nlp = spacy.load('en_core_web_sm', disable=['ner', 'parser'])
+nlp = spacy.load('en_core_web_sm/', disable=['ner', 'parser'])
 # Load dataset from CSV file into pandas DataFrame
 dataset = pd.read_csv("one.csv", encoding="latin-1")
 # Define function to get the closest matching question from dataset using spaCy's similarity score
@@ -55,7 +55,7 @@ def get_closest_question(question, threshold=0.7):
         if score > max_score:
             max_score = score
             closest_question = quest
-
+            print(closest_question)
     if max_score >= threshold:
         return closest_question
     else:
