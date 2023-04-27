@@ -114,7 +114,7 @@ covered_categories = []
 bottom_questions = {}
 while True:
         # Get input from doctor
-        question = input(f"Patient: ")
+        question = input(f":Doctor ")
         # question = "how do you feel now?"
     
         if question.lower() in ["end", "stop", "quit", "exit", "bye"]:
