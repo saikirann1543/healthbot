@@ -14,8 +14,9 @@ w2v_model = KeyedVectors.load_word2vec_format('Cone.bin', binary=True)
 # load spacy nlp model
 nlp = spacy.load('en_core_web_sm/', disable=['ner', 'parser'])
 # Load dataset from CSV file into pandas DataFrame
-dataset = pd.read_csv("one.csv", encoding="latin-1")
+dataset = pd.read_csv("oneyo.csv", encoding="latin-1")
 # Define function to get the closest matching question from dataset using spaCy's similarity score
+dataset = dataset.drop_duplicates(subset='Questions', keep='first')
 def preprocess_text(text):
     # lowercase text
     text = text.lower()
@@ -48,7 +49,8 @@ def get_closest_question(question, threshold=0.7):
 
         # calculate similarity using word2vec
         try:
-            score = w2v_model.n_similarity(question.split(), q.split())
+            if q:
+                score = w2v_model.n_similarity(question.split(), q.split())
         except KeyError:
             score = -1
 
@@ -80,9 +82,9 @@ def get_dataset_response(question):
     # exit()
     response_type = row['Yes Type'] if random.random() < 0.5 else row['No Type']
     # response = row['Yes Type'] if (response_type == 'Yes Type' or str(row['Category'][1]).startswith("Scenario")) else row['No Type']
-    if "Scenario 1" in str(row['Category']):
+    if str(row['Category']).startswith("Sce"):
         response = row['Yes Type']
-    elif "Scenario 2" in str(row['Category']):
+    elif str(row['Category']).startswith("Sce"):
         response = row['Yes Type']
     elif response_type == 'Yes Type':
         response = row['Yes Type']
@@ -94,19 +96,6 @@ def get_dataset_response(question):
     except TypeError:
         return response, closest_question
 
-# Define function to get response from OpenAI API
-    # Use OpenAI API to generate response
-    question = "answer this question as if a doctor is asking you \n" + question
-    response = openai.Completion.create(
-        engine="davinci",
-        prompt=question,
-        max_tokens=50,
-        n=1,
-        stop=".",
-        temperature=0.2,
-    )
-
-    return response.choices[0].text.strip()
 
 # Initialize list of covered categories
 covered_categories = []
