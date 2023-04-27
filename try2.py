@@ -14,7 +14,7 @@ w2v_model = KeyedVectors.load_word2vec_format('Cone.bin', binary=True)
 # load spacy nlp model
 nlp = spacy.load('en_core_web_sm/', disable=['ner', 'parser'])
 # Load dataset from CSV file into pandas DataFrame
-dataset = pd.read_csv("oneyo.csv", encoding="latin-1")
+dataset = pd.read_csv("one.csv", encoding="latin-1")
 # Define function to get the closest matching question from dataset using spaCy's similarity score
 dataset = dataset.drop_duplicates(subset='Questions', keep='first')
 def preprocess_text(text):
