@@ -27,7 +27,7 @@ def preprocess_text(text):
     # remove stop words
     text = " ".join([word for word in text.split() if word not in STOP_WORDS])
 
-    # lemmatize text
+    # lemmatize 
     doc = nlp(text)
     text = " ".join([token.lemma_ for token in doc])
 
