@@ -14,12 +14,15 @@ def chatbot():
 def predict():
     try:
         text = request.get_json().get('message')
+        print("this is the text", text)
         respo = get_dataset_response(text)
         response = respo[0]
+        print("this is the response", response)
         closest_question = respo[1]
         message = {'answer': response}
-        if text.lower() in ["hi", "hello"]:
-            messages = ["Hello Doc!", "Hi Doc!"]
+        print("this is the messsage", message)
+        if text.lower() in ["Hi", "Hello Doc!", "Hey", "Hi there", "Hello there", "Hey there"]:
+            messages = ["Hello Doc!", "Hi Doc!", 'Hello, how are you feeling today?', 'Hi, how can I help you today?', 'Hey, how are you doing today?']
             message = {'answer': random.choice(messages)}
         if text.lower() in ["end", "stop", "quit", "exit", "bye"]:
             category = get_category_and_rating(response, closest_question)
@@ -50,4 +53,5 @@ def save_rating():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
+                          
