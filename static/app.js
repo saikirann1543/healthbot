@@ -120,7 +120,7 @@ class Chatbox {
           this.onEndChat(chatbox);
         }
         else{
-          alert("inside else");
+//           alert("inside else");
         }
       })
       .catch((error) => {
