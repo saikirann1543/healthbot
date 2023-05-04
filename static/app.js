@@ -106,9 +106,21 @@ class Chatbox {
         this.updateChatText(chatbox);
         textField.value = "";
         if (msg2.message.includes("Thank you for chatting with me!")) {
+          let responses = msg2.message.split(' & ');
+  for (let i = 0; i < responses.length; i++) {
+    let response = responses[i].trim();
+    if (response.length > 0) {
+      this.messages.push({ name: "Bot", message: response });
+      
+    }
+  }
+
+  this.updateChatText(chatbox);
+          
           this.onEndChat(chatbox);
         }
         else{
+          alert("inside else");
         }
       })
       .catch((error) => {
@@ -154,5 +166,3 @@ class Chatbox {
 
 const chatbox = new Chatbox();
 chatbox.display();
-
-
