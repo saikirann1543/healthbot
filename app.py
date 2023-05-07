@@ -17,7 +17,7 @@ def predict():
         if text.lower() in ["end", "stop", "quit", "exit", "bye"]:
             pass
         print("this is the text", text)
-        if text.lower() in ["hi", "hello doc!", "hey", "hi there", "hello there", "Hey there"]:
+        if text.lower() in ["hello","hi", "hello doc!", "hey", "hi there", "hello there", "Hey there"]:
             messages = ["Hello Doc!", "Hi Doc!", 'Hello, how are you feeling today?', 'Hi, how can I help you today?', 'Hey, how are you doing today?']
             message = {'answer': random.choice(messages)}
             return jsonify(json.loads(json.dumps(message, indent=4)))
